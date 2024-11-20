@@ -10,7 +10,6 @@ from nltk.tokenize import sent_tokenize
 from rich.console import Console
 from rich.table import Table
 
-# Create a Console instance
 console = Console()
 
 llm = OllamaLLM(model="mistral:latest")
@@ -45,7 +44,7 @@ chunk_embeddings = []
 for chunk in content_chunks:
     inputs = tokenizer(chunk, return_tensors='pt', max_length=512, truncation=True)
     with torch.no_grad():
-        embedding = model(**inputs).last_hidden_state[:, 0, :].numpy()  # CLS token pooling
+        embedding = model(**inputs).last_hidden_state[:, 0, :].numpy()  
     chunk_embeddings.append(embedding)
 
 embeddings_np = np.vstack(chunk_embeddings)
